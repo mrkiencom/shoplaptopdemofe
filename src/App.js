@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './component/header.js';
 import Product from './component/production.js';
 import Admin from './pages/admin.js';
-import './style/admin.css';
+import "./App.css"
 
 import {
   BrowserRouter as Router,
@@ -18,8 +18,8 @@ class App extends React.Component {
     return (
       <Router>
         <div className="App">
-          {/* <Header />
-          <Product /> */}
+          <Header />
+          <Product />
 
           <Route path="/Admin" > <Admin /></Route>
 
