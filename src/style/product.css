@@ -86,7 +86,7 @@ button.xac-nhan,
 button.huy {
     width: 200px;
     height: 50px;
-    margin: 80px 5px 0 5px;
+    margin: auto;
     font-family: Courier New, monospace;
     border-style: none;
     font-size: 20px;
@@ -95,7 +95,7 @@ button.huy {
 
 button.xac-nhan {
     background-color: rgb(34, 151, 34);
-    margin-left: 100px;
+    
 }
 
 button.huy {

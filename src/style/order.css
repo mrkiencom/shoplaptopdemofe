@@ -1,8 +1,9 @@
 .order{
     width: 1100px;
     float: right;
-    background-color: beige;
-    margin: 50px 50px 0 0;
+    justify-content: center;
+    background-color: rgb(241, 241, 233);
+    margin: 50px 70px auto;
     padding: 30px 20px 0 20px;
 }
 .title>h1{
@@ -34,7 +35,7 @@ ul.list-title>li,ul.list-info>li{
     opacity: 0.1;
     height: 50px;
     margin-left: -40px;
-    width: 1100px;
+    width: 1060px;
 }
 .shipped{
     color: rgb(128, 109, 24);
@@ -114,9 +115,10 @@ button.btn-cancer,button.btn-cancer:active{
     font-family: Arial;
     font-weight: 700;
 }
-.btn{
-    text-align: center;
-    margin-top:50px;
+div.btn,div.btn:hover{
+    box-shadow: none;
+    display: flex;
+    justify-content: center; 
 }
 .btn>button,.btn>button:active{
     height: 50px;
