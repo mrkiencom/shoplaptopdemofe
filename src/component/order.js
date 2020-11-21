@@ -82,7 +82,7 @@ export default class Order extends React.Component {
             <div class="order">
                 <div class="title">
                     <h1>ORDER</h1>
-                    <select class="select-status" value={this.state.selectValue} onChange={this.onchangeSelect()}>
+                    <select className="select-status" value={this.state.selectValue} onChange={this.onchangeSelect()}>
                         <option value="All">All</option>
                         <option value="shipping">shipping</option>
                         <option value="shipped">shipped</option>
