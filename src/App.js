@@ -3,6 +3,7 @@ import Header from './component/header.js';
 import Product from './component/production.js';
 import Admin from './pages/admin.js';
 import Login from './pages/login.js'
+import './App.css';
 import {
   BrowserRouter as Router,
   Switch,
