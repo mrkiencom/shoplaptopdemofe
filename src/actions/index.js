@@ -10,7 +10,7 @@ export const showProducts = (products) => {
 
 export const dataProductAPI = () => {
   return dispatch => {
-    return CallAPI('GET', 'products', null).then(res =>{
+    return CallAPI('products','GET', null, null).then(res =>{
       dispatch(showProducts(res.data['data']))
     }).catch(err => {
     })

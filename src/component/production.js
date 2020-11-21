@@ -9,6 +9,7 @@ class Product extends React.Component {
     }
     
     render() {
+        console.log('ok');
         const listProducts = this.props.products.map((product, index) => {
             const url = "https://shop-laptop-2020.herokuapp.com/" + product.picture.url
             return (

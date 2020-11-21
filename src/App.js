@@ -2,12 +2,7 @@ import React from 'react';
 import Header from './component/header.js';
 import Product from './component/production.js';
 import Admin from './pages/admin.js';
-<<<<<<< HEAD
 import Login from './pages/login.js'
-=======
-import "./App.css"
-
->>>>>>> 86bc996bce1e4ad5847ace8d225224295350cdda
 import {
   BrowserRouter as Router,
   Switch,
@@ -23,19 +18,12 @@ class App extends React.Component {
     return (
       <Router>
         <div className="App">
-<<<<<<< HEAD
           {/* <Header />
           <Product /> */}
-          <Route exact path="/" Component={Header} />
+          <Route exact path="/" component={Header} />
+          <Route exact path="/products" component={Product} />
           <Route path="/Admin" component={Admin} />
           <Route path="/Login" component={Login} />
-=======
-          <Header />
-          <Product />
-
-          <Route path="/Admin" > <Admin /></Route>
-
->>>>>>> 86bc996bce1e4ad5847ace8d225224295350cdda
 
         </div>
       </Router>
