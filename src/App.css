@@ -1,10 +1,9 @@
 .App {
   margin: 0;
   padding: 0;
+  width: auto;
 }
-body {
-  display: block;
-}
+
 
 /* Header */
 .main-header{

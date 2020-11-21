@@ -6,6 +6,7 @@ import { SiLenovo } from "react-icons/si";
 import React from 'react';
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { MdScreenShare } from "react-icons/md"
+import { Link } from 'react-router-dom'
 class Header extends React.Component {
     render() {
         return (
@@ -19,7 +20,7 @@ class Header extends React.Component {
                         </a>
                         </li>
                         <li> <a href='https://www.facebook.com/ ' class="sign-up" >Đăng kí </a> </li>
-                        <li> <a href="#" class=" sign-in" >Đăng Nhập </a> </li>
+                        <li> <Link href="#" class=" sign-in" to="/login">Đăng Nhập </Link> </li>
                     </ul >
                 </div >
                 <img src="./1.jpg" id="image-1"></img>

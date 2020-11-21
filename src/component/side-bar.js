@@ -6,26 +6,33 @@ import {
     Link
 } from "react-router-dom";
 import Product from './product.js'
+import Order from './order.js'
+import Account from './account.js'
 class SideBar extends React.Component {
     render() {
         return (
             <Router>
                 <div class="List">
                     <li class="List-iteam">
-                        <Link to="/Admin/products">admin</Link>
-                        <Link to="/Admin/products">Trang Chủ</Link>
-                        <Link to="/Admin/products">Thống Kê</Link>
-                        <Link to="/Admin/products">Quan lý</Link>
-                        <Link to="/Admin/products">Đơn hàng</Link>
-                        <Link to="/Admin/products">Sản phẩm</Link>
-                        <Link to="/Admin/products">Danh mục</Link>
-                        <Link to="/Admin/products">Tài khoản</Link>
-                        <Link to="/Admin/products">Người dùng</Link>
+                        <h1>ADMIN</h1>
+                        <Link class="link" to="/">Trang Chủ</Link>
+                        <Link class="link" to="/Admin/products">Thống Kê</Link>
+                        <Link class="link" to="/Admin/order">Đơn hàng</Link>
+                        <Link class="link" to="/Admin/products">Sản phẩm</Link>
+                        <Link class="link" to="/Admin/products">Danh mục</Link>
+                        <Link class="link" to="/Admin/account">Tài khoản</Link>
+                        <Link class="link" to="/Admin/products">Người dùng</Link>
                     </li>
                 </div>
                 <Switch>
                     <Route path="/Admin/products">
                         <Product />
+                    </Route>
+                    <Route path="/Admin/order">
+                        <Order />
+                    </Route>
+                    <Route path="/Admin/account"  >
+                        <Account />
                     </Route>
                 </Switch>
             </Router>

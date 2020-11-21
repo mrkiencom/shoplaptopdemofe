@@ -2,8 +2,7 @@ import React from 'react';
 import Header from './component/header.js';
 import Product from './component/production.js';
 import Admin from './pages/admin.js';
-import './style/admin.css';
-
+import Login from './pages/login.js'
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,6 +12,7 @@ import {
 } from "react-router-dom";
 
 
+
 class App extends React.Component {
   render() {
     return (
@@ -20,9 +20,9 @@ class App extends React.Component {
         <div className="App">
           {/* <Header />
           <Product /> */}
-
-          <Route path="/Admin" > <Admin /></Route>
-
+          <Route exact path="/" Component={Header} />
+          <Route path="/Admin" component={Admin} />
+          <Route path="/Login" component={Login} />
 
         </div>
       </Router>

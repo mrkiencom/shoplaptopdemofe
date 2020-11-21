@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import CallAPI from '../callAPI/callAPI.js';
+import "../style/product.css"
 export default class Product extends React.Component {
     constructor() {
         super();
@@ -14,15 +15,17 @@ export default class Product extends React.Component {
             ram: '',
             quantity: '',
             status: false,
-            statusAddProduct: false
-        };
+            statusAddProduct: false,
+            valueSearch: '',
+        }
     }
     getAPI() {
         var iteam = [];
         axios
             .get(
                 `
-    https://shop-laptop-2020.herokuapp.com/v1/products`
+    https://shop-laptop-2020.herokuapp.com/v1/products`,
+
             )
             .then((res) => {
                 for (var i of res.data.data) {
@@ -40,8 +43,27 @@ export default class Product extends React.Component {
     }
     componentDidMount() {
         console.log("did mouse")
-        this.getAPI();
+        //this.getAPI();
+        var iteam = [];
+        axios
+            .get(
+                `
+    https://shop-laptop-2020.herokuapp.com/v1/products`,
 
+            )
+            .then((res) => {
+                for (var i of res.data.data) {
+                    iteam.push(i);
+                }
+                iteam.sort(function (a, b) {
+                    return a.id - b.id;
+                })
+                this.setState({
+                    list: iteam,
+                    check: true
+                });
+            })
+            .catch((error) => console.log(error));
     }
     componentDidUpdate(nextProps, prevState) {
         console.log(this.state.status)
@@ -179,32 +201,11 @@ export default class Product extends React.Component {
             "ram": this.state.ram,
             "memory": null,
             "picture": {
-                "url": null
+                "url": "hlllo"
             },
-            "category": {
-                "id": null,
-                "name": "DELL",
-                "description": "strong"
-            }
-            // "product": {
-            //     "category_id": 15,
-            //     "name": "Macbook of kien",
-            //     "price": 10,
-            //     "quantity": 1110,
-            //     "ram": null,
-            //     "memory": null,
-            //     "picture": {
-            //         "url": null
-            //     },
-            //     "category": {
-            //         "id": null,
-            //         "name": "DELL",
-            //         "description": "strong"
-            //     }
-            // }
         }
         return (event) => {
-            axios.post(`https://shop-laptop-2020.herokuapp.com/v1/posts`, iteam
+            axios.post(`https://shop-laptop-2020.herokuapp.com/v1/products`, iteam
             ).then(x => console.log(iteam)).catch(err => console.log("err"));
             this.setState({
                 statusAddProduct: false
@@ -213,6 +214,37 @@ export default class Product extends React.Component {
             console.log(iteam)
         }
     }
+
+    changeSearch = (event) => {
+        this.setState({
+            valueSearch: event.target.value
+        })
+        const iteam = [];
+        axios
+            .get(
+                `
+            https://shop-laptop-2020.herokuapp.com/v1/products`,
+                {
+                    params: {
+                        search: event.target.value
+                    }
+                }
+            )
+            .then((res) => {
+                for (var i of res.data.data) {
+                    iteam.push(i);
+                }
+                iteam.sort(function (a, b) {
+                    return a.id - b.id;
+                })
+                this.setState({
+                    list: iteam,
+                    check: true
+                });
+            })
+            .catch((error) => console.log(error));
+
+    }
     render() {
         console.log("render");
         const iteam = this.state.list[1];
@@ -220,7 +252,7 @@ export default class Product extends React.Component {
             < div className="product" >
                 <div class="type-name">
                     <h1>Danh Sách sản phẩm</h1>
-                    <input placeholder="Bạn cần tìm gì" ></input>
+                    <input value={this.state.valueSearch} onChange={event => this.changeSearch(event)} placeholder="Bạn cần tìm gì" ></input>
                     <button class="Add-product" onClick={this.addProduct()}>Thêm mới</button>
                     {(this.state.statusAddProduct) && <div class="form-edit">
                         <ul class="add-product">
