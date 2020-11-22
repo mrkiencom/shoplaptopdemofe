@@ -19,7 +19,7 @@ function login() {
 }
 
 
-function callAPI(endpoint, method = "GET", body, token) {
+function callAPI(endpoint, method, body, token) {
     return axios({
         method: method,
         url: 'https://shop-laptop-2020.herokuapp.com/v1/' + `${endpoint}`,

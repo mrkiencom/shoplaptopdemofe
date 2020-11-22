@@ -120,7 +120,7 @@ div.btn,div.btn:hover{
     display: flex;
     justify-content: center; 
 }
-.btn>button,.btn>button:active{
+.btn>button,.btn>button:active,button.huy-xac-nhan,button.hoan-thanh-xac-nhan{
     height: 50px;
     width: 300px;
     margin-right: 40px;
@@ -130,9 +130,10 @@ div.btn,div.btn:hover{
     font-weight: 1000;
     color: honeydew;
 }
-button.xacnhan-order{
+button.xacnhan-order,button.hoan-thanh-xac-nhan{
     background-color: rgb(7, 95, 11);
 }
-button.huy-order{
+button.huy-order,button.huy-xac-nhan{
     background-color: rgb(179, 35, 35);
 }
+

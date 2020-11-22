@@ -8,6 +8,7 @@ import {
 import Product from './product.js'
 import Order from './order.js'
 import Account from './account.js'
+
 class SideBar extends React.Component {
     render() {
         return (
@@ -34,6 +35,7 @@ class SideBar extends React.Component {
                     <Route path="/Admin/account"  >
                         <Account />
                     </Route>
+
                 </Switch>
             </Router>
         );

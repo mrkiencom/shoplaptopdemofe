@@ -1,9 +1,57 @@
 import React from "react";
 import axios from "axios";
 import '../style/order.css'
+import login from "../callAPI/callAPI"
+import callAPI from "../callAPI/callAPI"
+import { Redirect } from "react-router-dom"
 export default class ShowDetail extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            check: false,
+            message: "",
+            checkload: false
+        }
+    }
+    accept() {
+        return e => {
+            this.setState({
+                check: true,
+                message: "accept"
 
+            })
+        }
+    }
+    done() {
+        return e => {
+            this.setState({
+                check: true,
+                message: "done"
+
+            })
+        }
+    }
+    cancel() {
+        return e => {
+            this.setState({
+                check: true,
+                message: "cancel"
+            })
+        }
+    }
+    xacnhan(res) {
+        callAPI.login();
+        if (this.state.message === "accept") callAPI.callAPI('orders/' + `${res}` + '/approve', 'PATCH', res, localStorage.getItem('token'))
+        if (this.state.message === "cencel") callAPI.callAPI('orders/' + `${res}` + '/cancel', 'PATCH', res, localStorage.getItem('token'))
+        if (this.state.message === "done") callAPI.callAPI('orders/' + `${res}` + '/done', 'PATCH', res, localStorage.getItem('token'))
+        return e => {
+            this.setState({
+                checkload: true
+            })
+        }
+    }
     render() {
+        if (this.state.checkload === true) return window.location.reload();
         const res = [];
         res.push(this.props.res);
         return (
@@ -72,9 +120,25 @@ export default class ShowDetail extends React.Component {
                                     </ul>
                                 </div>
                                 {(res.status === "pending") && < div class="btn">
-                                    <button class="xacnhan-order" >Xác nhận đơn hàng</button>
-                                    <button class="huy-order">Hủy đơn hàng</button>
+                                    {(this.state.check === false) && <div class="btn">
+                                        <button class="xacnhan-order" onClick={this.accept(res.order_items[0].id)}>Xác nhận đơn hàng ! </button>
+                                        <button class="huy-order" onClick={this.cancel(res.order_items[0].id)}>Hủy đơn hàng !</button>
+                                    </div>
+                                    }
+                                </div>
+                                }
+                                {(res.status === "shipping") && <div class="btn">
+                                    {(this.state.check === false) && <div class="btn">
+                                        <button class="xacnhan-order" onClick={this.done()}> done !</button>
+                                    </div>
+                                    }
+                                </div>
+                                }
 
+
+                                {(this.state.check === true) && <div class="btn">
+                                    <button class="hoan-thanh-xac-nhan" onClick={this.xacnhan(res.order_items[0].id)}>Hoan thanh !</button>
+                                    <button class="huy-xac-nhan" onClick={e => this.setState({ check: !this.state.check })}>Huy xac nhan !</button>
                                 </div>
                                 }
                             </div>
