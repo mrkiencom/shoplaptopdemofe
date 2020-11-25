@@ -157,7 +157,9 @@ export default class Product extends React.Component {
                 status: true
             })
             this.getAPI()
+            window.location.reload();
         }
+
     }
 
     delete(id) {

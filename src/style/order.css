@@ -52,6 +52,11 @@ ul.list-title>li,ul.list-info>li{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: 1000;
 }
+.denied{
+    color: black;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 1000;
+}
 .cancelled{
     color: rgb(53, 148, 129);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;

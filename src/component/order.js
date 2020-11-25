@@ -86,7 +86,7 @@ export default class Order extends React.Component {
                         <option value="All">All</option>
                         <option value="shipping">shipping</option>
                         <option value="shipped">shipped</option>
-                        <option value="cancelled">cancelled</option>
+                        <option value="denied">denied</option>
                         <option value="pending">pending</option>
                     </select>
                 </div>

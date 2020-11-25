@@ -35,14 +35,14 @@ export default class ShowDetail extends React.Component {
         return e => {
             this.setState({
                 check: true,
-                message: "cancel"
+                message: "deny"
             })
         }
     }
     xacnhan(res) {
         callAPI.login();
         if (this.state.message === "accept") callAPI.callAPI('orders/' + `${res}` + '/approve', 'PATCH', res, localStorage.getItem('token'))
-        if (this.state.message === "cencel") callAPI.callAPI('orders/' + `${res}` + '/cancel', 'PATCH', res, localStorage.getItem('token'))
+        if (this.state.message === "deny") callAPI.callAPI('orders/' + `${res}` + '/deny', 'PATCH', res, localStorage.getItem('token'))
         if (this.state.message === "done") callAPI.callAPI('orders/' + `${res}` + '/done', 'PATCH', res, localStorage.getItem('token'))
         return e => {
             this.setState({
@@ -92,7 +92,7 @@ export default class ShowDetail extends React.Component {
                                 </div>
                                 <div class="info-product-order">
                                     <h2>Thông tin sản phẩm</h2>
-                                    <ul class="info-product-order">
+                                    {(res.order_items[0] !== '') && <ul class="info-product-order">
                                         <li>
                                             <span>Mã sản phẩm:</span>
                                             {res.order_items[0].id}
@@ -118,6 +118,7 @@ export default class ShowDetail extends React.Component {
                                             <span class={res.status}>{res.status}</span>
                                         </li>
                                     </ul>
+                                    }
                                 </div>
                                 {(res.status === "pending") && < div class="btn">
                                     {(this.state.check === false) && <div class="btn">
@@ -137,8 +138,8 @@ export default class ShowDetail extends React.Component {
 
 
                                 {(this.state.check === true) && <div class="btn">
-                                    <button class="hoan-thanh-xac-nhan" onClick={this.xacnhan(res.order_items[0].id)}>Hoan thanh !</button>
-                                    <button class="huy-xac-nhan" onClick={e => this.setState({ check: !this.state.check })}>Huy xac nhan !</button>
+                                    <button class="hoan-thanh-xac-nhan" onClick={this.xacnhan(res.order_items[0].id)}>Hoàn thành xác nhận!</button>
+                                    <button class="huy-xac-nhan" onClick={e => this.setState({ check: !this.state.check })}>Hủy xác nhận !</button>
                                 </div>
                                 }
                             </div>
