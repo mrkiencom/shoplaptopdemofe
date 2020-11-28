@@ -311,7 +311,7 @@ export default class Product extends React.Component {
                         </ul>
                     </div>}
                     <ul class="value-name">
-                        <li>Mã sản phẩm</li>
+                        <li>Dòng sản phẩm</li>
                         <li>Tên sản phẩm</li>
                         <li>Giá </li>
                         <li>Số lượng</li>
@@ -325,7 +325,7 @@ export default class Product extends React.Component {
                                 <ul>
                                     <ul class="info-product">
                                         <li>
-                                            {info.id}
+                                            {info.category.name}
                                         </li>
                                         <li> {info.name}</li>
                                         <li> {info.price}</li>
