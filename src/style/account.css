@@ -1,0 +1,71 @@
+.account{
+    width: 1100px;
+    float: right;
+    background-color: beige;
+    margin: 50px 250px auto;
+    padding: 30px 20px 0 20px;
+}
+.account>h1{
+    text-align: center;
+    margin-bottom: 50px;
+}
+.chuc-nang{
+    float: left;
+    margin-top: -40px;
+}
+button.disable{
+    display: none;
+}
+button.add,button.close{
+    display: inline;
+}
+
+.add-user{
+    padding-top:40px;
+    transition:  all 1s;
+ 
+}
+.add-user>h1{
+    text-align: center;
+    margin-bottom: 10px;
+}
+p.msg-err{
+    color: red;
+    font-size: small;
+    font-family: cursive;
+    height: 19px;
+} 
+div.user-detail{
+    width: 600px;
+    margin: auto;
+}
+input.disable{
+    pointer-events: none;
+    background-color: rgb(231, 236, 236);
+}
+button.none{
+    display: none;
+}
+div.edit-button{
+    text-align: center;
+    margin-right: 80px;
+}
+.form-detail-user{
+    width: 800px;
+    margin-top: 50px;
+    list-style: none;
+    padding-right: 40px;
+    background-color: rgba(204, 202, 202, 0.9);
+    border-radius: 20px;
+    box-shadow: 3px 5px 7px rgba(0, 0, 0);
+}
+div.edit-button>button.huy{
+    background-color: rgb(161, 51, 51);
+}
+button:active{
+    outline: none;
+}
+.chuc-nang>input{
+    margin-right:550px ;
+    width: 400px;
+}

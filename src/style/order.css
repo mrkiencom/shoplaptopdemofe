@@ -1,0 +1,144 @@
+.order{
+    width: 1100px;
+    float: right;
+    justify-content: center;
+    background-color: rgb(241, 241, 233);
+    margin: 50px 250px auto;
+    padding: 30px 20px 0 20px;
+}
+.title>h1{
+    text-align: center;
+}
+.list-title,.list-info{
+    display: flex;
+    list-style: none;
+}
+.list-title>li{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 900;
+}
+ul.list-title>li,ul.list-info>li{
+   width: 200px;
+   text-align: center;
+}
+.list-info{
+    border: 1px solid black;
+    height: 50px;
+    align-items: center;
+    margin-bottom: 20px;
+    
+}
+.btn-show{
+    position: absolute;
+    cursor: pointer; 
+    width: 100%;
+    opacity: 0.1;
+    height: 50px;
+    margin-left: -40px;
+    width: 1060px;
+}
+.shipped{
+    color: rgb(128, 109, 24);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 1000;
+}
+.shipping{
+    color: brown;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 1000;
+}
+.pending{
+    color: rgb(21, 75, 21);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 1000;
+}
+.denied{
+    color: black;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 1000;
+}
+.cancelled{
+    color: rgb(53, 148, 129);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 1000;
+}
+div.form-detail{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0);
+    display: flex;
+    justify-content: center;
+}
+ul.form-detail{
+    width: 1000px;
+    margin-top: 50px;
+    list-style: none;
+    padding-right: 40px;
+    background-color: rgba(204, 202, 202, 0.9);
+    border-radius: 20px;
+    box-shadow: 3px 5px 7px rgba(0, 0, 0);
+}
+
+div.info-customer,div.info-product-order{
+    height: 100%;
+    width: 100%;
+    border: 1pt solid rgb(31, 29, 29);
+    margin: 50px 0 30px 0;
+}
+
+ul.info-customer,ul.info-product-order{
+    font-family: 'Times New Roman', Times, serif;
+    list-style: none; 
+    column-count:2;
+}
+ul.info-customer>li,ul.info-product-order>li{
+    font-size: 1.3rem;
+    width: 500px;
+    margin: 0 0 10px 0;
+}
+span{
+    margin-right: 20px;
+    font-family: cursive;
+    font-weight: 800;
+}
+button.btn-cancer,button.btn-cancer:active{
+    background-color: none;
+    float: right;
+    margin: 10px -30px 0 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    outline: none;
+    font-weight: 800;
+}
+.select-status{
+    height: 30px;
+    position: relative;
+    font-family: Arial;
+    font-weight: 700;
+}
+div.btn,div.btn:hover{
+    box-shadow: none;
+    display: flex;
+    justify-content: center; 
+}
+.btn>button,.btn>button:active,button.huy-xac-nhan,button.hoan-thanh-xac-nhan{
+    height: 50px;
+    width: 300px;
+    margin-right: 40px;
+    border-radius: 5%;
+    outline: none;
+    font-family: cursive;
+    font-weight: 1000;
+    color: honeydew;
+}
+button.xacnhan-order,button.hoan-thanh-xac-nhan{
+    background-color: rgb(7, 95, 11);
+}
+button.huy-order,button.huy-xac-nhan{
+    background-color: rgb(179, 35, 35);
+}
+
