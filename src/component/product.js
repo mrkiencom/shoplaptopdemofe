@@ -25,7 +25,9 @@ export default class Product extends React.Component {
             valueSearch: '',
             category: "",
             checkDetail: [],
-            reload: false
+            reload: false,
+            imgName: '',
+            mota: ''
         }
     }
     getAPI() {
@@ -79,16 +81,6 @@ export default class Product extends React.Component {
                 });
             })
             .catch((error) => console.log(error));
-    }
-    componentDidUpdate(nextProps, prevState) {
-        console.log(this.state.status)
-        // if (this.state.status === true) {
-        //     this.getAPI();
-        //     this.setState({
-        //         status: false
-        //     })
-        // }
-
     }
     editProduct(x) {
         const arrCheck = [];
@@ -184,7 +176,7 @@ export default class Product extends React.Component {
                 status: true,
                 reload: true
             })
-            this.getAPI()
+
         }
 
     }
@@ -232,17 +224,20 @@ export default class Product extends React.Component {
                 "ram": this.state.ram,
                 "memory": null,
                 "picture": {
-                    "url": "hlllo"
+                    "url": this.state.imgName
                 },
+                "description": this.state.mota,
             }
-            callAPI.callAPI('products', 'POST', iteam, null).then(res => window.location.reload()).catch(err => console.log("err"))
+            callAPI.callAPI('products', 'POST', iteam, null).then(res => {
+                //window.location.reload()
+                console.log("res", res);
+                console.log("iteam", iteam)
+            }).catch(err => console.log("err"))
             this.setState({
                 statusAddProduct: false,
                 reload: true
             })
-
         }
-
     }
 
     changeSearch = (event) => {
@@ -283,9 +278,20 @@ export default class Product extends React.Component {
 
         }
     }
+    upLoadIMG = (event) => {
+        if (event.target.files && event.target.files[0]) {
+            let img = event.target.files[0];
+            this.setState({
+                imgName: URL.createObjectURL(img)
+            });
+        }
+    }
+    changeMOTA = (event) => {
+        this.setState({ mota: event.target.value })
+
+    }
     render() {
-        console.log("render");
-        const iteam = this.state.list[1];
+        console.log(this.state.imgName)
         return (
             < div className="product" >
                 <div class="type-name">
@@ -306,6 +312,11 @@ export default class Product extends React.Component {
                             <li> <label>Price</label><input type="add" onChange={event => this.changeValueEditPrice(event)}></input></li>
                             <li> <label>quantity</label><input type="add" onChange={event => this.changeValueEditQuantity(event)}></input></li>
                             <li> <label>RAM</label><input type="add" onChange={event => this.changeValueEditRam(event)}></input></li>
+                            <li>
+                                <label>Image</label>
+                                <input type="file" onChange={event => this.upLoadIMG(event)}></input>
+                            </li>
+                            <li> <label>Mo Ta </label><input type="add" onChange={event => this.changeMOTA(event)}></input></li>
                             <button class="xac-nhan" onClick={this.addProductAccept.bind(this)}>Xác nhận</button>
                             <button class="huy" onClick={this.close(1)}>Hủy</button>
                         </ul>
@@ -354,7 +365,7 @@ export default class Product extends React.Component {
                                             {/* <li> <label>ID</label><input value={this.state.id} type="edit" onChange={event => this.changeValueEditId(event)}></input></li> */}
                                             <li>
                                                 <p>Dòng</p>
-                                                <select value={this.state.category} onChange={this.changeCategory()} >
+                                                <select value={this.state.category} disabled onChange={this.changeCategory()} >
                                                     <option value="3"> Macbook</option>
                                                     <option value="2">Dell</option>
                                                     <option value="1">HP</option>

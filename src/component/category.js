@@ -13,7 +13,10 @@ class Category extends Component {
             description: '',
             showViewAdd: false,
             addname: '',
-            adddescription: ''
+            adddescription: '',
+            showViewAddProduct: [],
+            listProduct: [],
+            listcheckbox: []
         }
     }
     getAPI() {
@@ -33,10 +36,26 @@ class Category extends Component {
             console.log(this.state.list)
         })
             .catch((error) => console.log(error));
+
+        var iteamProduct = []
+        callAPI.callAPI('products', 'GET', iteamProduct, localStorage.getItem('token')).then(res => {
+            for (var i of res.data.data) {
+                iteamProduct.push(i);
+            }
+            console.log(res)
+            iteamProduct.sort(function (a, b) {
+                return a.id - b.id;
+            })
+            this.setState({
+                listProduct: iteamProduct,
+                check: true
+            });
+        })
     }
     componentDidMount() {
         callAPI.login()
         this.getAPI();
+
     }
 
     changeId = (e) => {
@@ -97,15 +116,14 @@ class Category extends Component {
         return e => {
             this.setState({
                 showViewEdit: showViewEdit,
-                showViewAdd: false
+                showViewAdd: false,
+                showViewAddProduct: showViewEdit
             })
-
         }
     }
     add() {
 
         this.setState({ showViewAdd: true })
-        console.log(this.state.sho)
     }
     xacnhanAdd() {
         const iteam = {
@@ -119,18 +137,55 @@ class Category extends Component {
 
         }
     }
+    addProduct(res, key) {
+        const showViewEdit = []
+        for (let i = 0; i < this.state.list.length; i++) {
+            showViewEdit[i] = 'false'
+        }
+        showViewEdit[key] = 'true'
+        return e => {
+            this.setState({
+                showViewAddProduct: showViewEdit,
+            })
+            console.log(res.name)
+        }
+    }
+    componentWillMount() {
+        this.checked = new Set();
+    }
+
+    addCheckbox = (id) => {
+        if (this.checked.has(id)) {
+            this.checked.delete(id)
+        } else
+            this.checked.add(id)
+
+        this.setState({
+            listcheckbox: this.checked
+        })
+        console.log(this.state.listcheckbox);
+    }
+    AcceptAddProduct(id) {
+        return e => {
+            callAPI.callAPI('categories/' + `${id}` + '/add_products', 'PATCH', this.state.listcheckbox, localStorage.getItem('token')).then(res => {
+                console.log("DONE");
+                window.location.reload();
+            }
+            ).catch(() => console.log("err"))
+        }
+    }
     render() {
+        console.log("list:", this.state.list)
         return (
             <div class="category">
                 <div class="category-main">
                     <div class="category-main-header">
                         <h1>Thể loại</h1>
-                        <button class="add" onClick={this.add.bind(this)}>Thêm mới</button>
+                        <button class="add" onClick={this.add.bind(this)}>Thêm mới Category</button>
                         {
                             (this.state.showViewAdd === true) && <div class="background">
                                 <ul class="form-edit-category">
                                     <h1>ADD</h1>
-
                                     <li>
                                         <span>Name</span>
                                         <input value={this.state.addname} type='edit' onChange={e => this.changeName(e)}></input>
@@ -152,7 +207,7 @@ class Category extends Component {
                             <li>ID</li>
                             <li>NAME</li>
                             <li>Mô tả</li>
-                            <li>Edit</li>
+                            <li>Tool</li>
                         </ul>
                         {
                             this.state.list.map((res, key) => {
@@ -162,8 +217,56 @@ class Category extends Component {
                                             <li>{res.id}</li>
                                             <li>{res.name}</li>
                                             <li>{res.description}</li>
-                                            <li><button onClick={this.editCategory(res, key)}>Edit</button></li>
+                                            <li>
+                                                <button onClick={this.editCategory(res, key)}>Edit</button>
+                                                <button onClick={this.addProduct(res, key)}>Add</button>
+                                            </li>
                                         </ul>
+
+                                        {(this.state.showViewAddProduct[key] === 'true') && <div class="background">
+                                            <div class="form-add-product-category">
+                                                <h1>ADD</h1>
+                                                <ul class="form-add-product-category-title">
+                                                    <li>.</li>
+                                                    <li>ID</li>
+                                                    <li>NAME</li>
+                                                    <li>MEMORY</li>
+                                                    <li>PRICE</li>
+                                                    <li>QUANTITY</li>
+                                                    <li>RAM</li>
+                                                </ul>
+
+                                                {this.state.listProduct.map((resP, keyP) => {
+                                                    return (
+                                                        <ul class="list-add-product-category">
+                                                            <input type="checkbox" value={resP.id} onChange={() => this.addCheckbox(resP.id)}></input>
+                                                            <li>{resP.id}</li>
+                                                            <li>{resP.name}</li>
+                                                            <li>{resP.memory}</li>
+                                                            <li>{resP.price}</li>
+                                                            <li>{resP.quantity}</li>
+                                                            <li>{resP.ram}</li>
+                                                        </ul>
+                                                    )
+                                                })}
+
+                                                <div>
+                                                    <button class="xac-nhan" onClick={this.AcceptAddProduct(res.id)}>Add</button>
+                                                    <button class="huy" onClick={this.close()}>Huy</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        }
+
+
+
+
+
+
+
                                         {(this.state.showViewEdit[key] === 'true') && <div class="background">
                                             <ul class="form-edit-category">
                                                 <h1>EDIT</h1>
