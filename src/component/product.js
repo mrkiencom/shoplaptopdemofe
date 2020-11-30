@@ -7,12 +7,13 @@ import { BiEdit } from 'react-icons/bi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { BiDetail } from 'react-icons/bi';
 import callAPI from "../callAPI/callAPI.js";
-
+import isEmpty from 'validator/lib/isEmpty';
 export default class Product extends React.Component {
     constructor() {
         super();
         this.state = {
             list: [],
+            listC: [],
             check: false,
             checkEdit: [],
             id: '',
@@ -27,11 +28,13 @@ export default class Product extends React.Component {
             checkDetail: [],
             reload: false,
             imgName: '',
-            mota: ''
+            mota: '',
+            msg: {}
         }
     }
     getAPI() {
         var iteam = [];
+        let iteamC = []
         callAPI.callAPI('products', 'GET', iteam, null).then((res) => {
             for (var i of res.data.data) {
                 iteam.push(i);
@@ -41,6 +44,21 @@ export default class Product extends React.Component {
             })
             this.setState({
                 list: iteam,
+                check: true
+            });
+        })
+            .catch((error) => console.log(error));
+        callAPI.callAPI('categories', 'GET', iteamC, localStorage.getItem('token')).then((res) => {
+            console.log(res)
+            for (var i of res.data.data) {
+                iteamC.push(i);
+            }
+
+            iteamC.sort(function (a, b) {
+                return a.id - b.id;
+            })
+            this.setState({
+                listC: iteamC,
                 check: true
             });
         })
@@ -60,27 +78,23 @@ export default class Product extends React.Component {
     }
     componentDidMount() {
         console.log("did mouse")
-        //this.getAPI();
-        var iteam = [];
-        axios
-            .get(
-                `
-    https://shop-laptop-2020.herokuapp.com/v1/products`,
+        this.getAPI();
 
-            )
-            .then((res) => {
-                for (var i of res.data.data) {
-                    iteam.push(i);
-                }
-                iteam.sort(function (a, b) {
-                    return a.id - b.id;
-                })
-                this.setState({
-                    list: iteam,
-                    check: true
-                });
-            })
-            .catch((error) => console.log(error));
+    }
+    checkValidate = () => {
+        const msg = {}
+        if (isEmpty(this.state.category) || this.state.category === "0") {
+            msg.select = "select category please ! "
+        }
+        if (isEmpty(this.state.name)) {
+            msg.name = "Name isEmpty"
+        }
+        if (isEmpty(this.state.price)) {
+            msg.price = "Price isEmpty"
+        }
+        this.setState({ msg: msg })
+        if (Object.keys(msg).length > 0) return true
+        return false
     }
     editProduct(x) {
         const arrCheck = [];
@@ -123,7 +137,8 @@ export default class Product extends React.Component {
         return (event) => {
             this.setState({
                 checkEdit: arrCheck,
-                statusAddProduct: false
+                statusAddProduct: false,
+                msg: ''
             })
         }
     }
@@ -204,7 +219,6 @@ export default class Product extends React.Component {
             this.setState({
                 status: !this.state.status
             })
-            this.getAPI()
         }
     }
     addProduct() {
@@ -215,7 +229,9 @@ export default class Product extends React.Component {
         }
     }
     addProductAccept() {
-        {
+        const check = this.checkValidate();
+        if (!check) {
+
             const iteam = {
                 "category_id": this.state.category,
                 "name": this.state.name,
@@ -229,9 +245,7 @@ export default class Product extends React.Component {
                 "description": this.state.mota,
             }
             callAPI.callAPI('products', 'POST', iteam, null).then(res => {
-                //window.location.reload()
-                console.log("res", res);
-                console.log("iteam", iteam)
+                window.location.reload()
             }).catch(err => console.log("err"))
             this.setState({
                 statusAddProduct: false,
@@ -291,25 +305,39 @@ export default class Product extends React.Component {
 
     }
     render() {
-        console.log(this.state.imgName)
+        console.log(this.state.listC)
         return (
             < div className="product" >
                 <div class="type-name">
                     <h1>Danh Sách sản phẩm</h1>
                     <input value={this.state.valueSearch} onChange={event => this.changeSearch(event)} placeholder="Bạn cần tìm gì" ></input>
                     <button class="Add-product" onClick={this.addProduct()}>Thêm mới</button>
+
+                    {/* {form add } -------------------------------------------------------------------------*/}
+
                     {(this.state.statusAddProduct) && <div class="form-edit">
                         <ul class="edit">
                             <div><h1>Thêm mới</h1></div>
-                            <p>Dòng</p>
-                            <select value={this.state.category} onChange={this.changeCategory()}>
-                                <option>Select</option>
-                                <option value="3"> Macbook</option>
-                                <option value="2">Dell</option>
-                                <option value="1">HP</option>
-                            </select>
-                            <li> <label>Name</label><input type="add" onChange={event => this.changeValueEditName(event)}></input></li>
-                            <li> <label>Price</label><input type="add" onChange={event => this.changeValueEditPrice(event)}></input></li>
+                            <label>
+                                <p>Dòng</p>
+                                <select value={this.state.category} onChange={this.changeCategory()}>
+                                    <option value='0'>SELECT</option>
+                                    {this.state.listC.map((res, key) => {
+                                        return <option value={res.id}>{res.name}</option>
+                                    })}
+                                </select>
+
+                            </label>
+                            <p class="msg-err">{this.state.msg.select}</p>
+                            <li>
+
+                                <label>Name</label><input type="add" onChange={event => this.changeValueEditName(event)}></input>
+                                <p class="msg-err">{this.state.msg.name}</p>
+                            </li>
+                            <li> <label>Price</label><input type="add" onChange={event => this.changeValueEditPrice(event)}></input>
+                                <p class="msg-err">{this.state.msg.price}</p>
+
+                            </li>
                             <li> <label>quantity</label><input type="add" onChange={event => this.changeValueEditQuantity(event)}></input></li>
                             <li> <label>RAM</label><input type="add" onChange={event => this.changeValueEditRam(event)}></input></li>
                             <li>

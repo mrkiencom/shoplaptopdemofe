@@ -38,6 +38,9 @@ body {
     font-weight: 600;
     padding-top: 30px;
 }
-.List-iteam>a:hover{
+.List-iteam>a:hover,.List-iteam>a:focus{
     background-color: rgb(163, 162, 157);
+}
+button.log-out{
+    
 }

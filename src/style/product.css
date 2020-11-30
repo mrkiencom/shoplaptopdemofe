@@ -54,7 +54,7 @@ ul.info-product>li {
     margin-left: 10px;
 }
 
-ul.edit,ul.add-product {
+ul.edit {
     /* min-height: 200px; */
     width: 600px;
     margin-top: 50px;
@@ -62,7 +62,7 @@ ul.edit,ul.add-product {
     padding-right: 40px;
     background-color: rgb(238, 237, 233);
     border-radius: 20px;
-    box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.2);
+    box-shadow: 3px 5px 7px rgba(185, 95, 95, 0.2);
 }
 
 div.form-edit {
@@ -75,7 +75,9 @@ div.form-edit {
     display: flex;
     justify-content: center;
 }
-
+label{
+    font-weight: 1000;
+}
 ul.edit>div {
     text-align: center;
     height: 50px;
@@ -102,7 +104,10 @@ button.xac-nhan,button.btn-detail-product {
     
     
 }
-
+ul.edit>li>label{
+    float: left;
+    display: flex;
+}
 button.huy {
     background-color: rgb(207, 199, 199);
 }

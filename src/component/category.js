@@ -20,7 +20,8 @@ class Category extends Component {
         }
     }
     getAPI() {
-        var iteam = [];
+        let iteam = [];
+        let iteamProduct = [];
         callAPI.callAPI('categories', 'GET', iteam, localStorage.getItem('token')).then((res) => {
             for (var i of res.data.data) {
                 iteam.push(i);
@@ -36,20 +37,20 @@ class Category extends Component {
             console.log(this.state.list)
         })
             .catch((error) => console.log(error));
-
-        var iteamProduct = []
         callAPI.callAPI('products', 'GET', iteamProduct, localStorage.getItem('token')).then(res => {
-            for (var i of res.data.data) {
-                iteamProduct.push(i);
+            if (res != undefined) {
+                for (let i of res.data.data) {
+                    iteamProduct.push(i);
+                }
+                console.log(res)
+                iteamProduct.sort(function (a, b) {
+                    return a.id - b.id;
+                })
+                this.setState({
+                    listProduct: iteamProduct,
+                    check: true
+                });
             }
-            console.log(res)
-            iteamProduct.sort(function (a, b) {
-                return a.id - b.id;
-            })
-            this.setState({
-                listProduct: iteamProduct,
-                check: true
-            });
         })
     }
     componentDidMount() {
