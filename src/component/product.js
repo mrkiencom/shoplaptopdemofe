@@ -29,7 +29,9 @@ export default class Product extends React.Component {
             reload: false,
             imgName: '',
             mota: '',
-            msg: {}
+            msg: {},
+            selectCategori: '',
+            listTMP: '',
         }
     }
     getAPI() {
@@ -44,6 +46,7 @@ export default class Product extends React.Component {
             })
             this.setState({
                 list: iteam,
+                listTMP: iteam,
                 check: true
             });
         })
@@ -175,7 +178,7 @@ export default class Product extends React.Component {
 
         return (event) => {
             const iteam = {
-                "category_id": this.state.id,
+                "category_id": this.state.category,
                 "name": this.state.name,
                 "price": this.state.price,
                 "quantity": this.state.quantity,
@@ -191,7 +194,7 @@ export default class Product extends React.Component {
                 status: true,
                 reload: true
             })
-
+            console.log(this.state.category)
         }
 
     }
@@ -246,7 +249,11 @@ export default class Product extends React.Component {
             }
             callAPI.callAPI('products', 'POST', iteam, null).then(res => {
                 window.location.reload()
-            }).catch(err => console.log("err"))
+                window.alert("thanh cong")
+            }).catch(err => {
+                console.log("err");
+                window.alert('Thêm sản phẩm that bai !', err)
+            })
             this.setState({
                 statusAddProduct: false,
                 reload: true
@@ -304,14 +311,33 @@ export default class Product extends React.Component {
         this.setState({ mota: event.target.value })
 
     }
+
+    changeSelectCategori = (event) => {
+        const iteam = this.state.listTMP
+        this.setState({
+            list: (event.target.value === "All") ? iteam : iteam.filter((res, key) => res.category.id == event.target.value),
+            selectCategori: event.target.value,
+        })
+        console.log(this.state.listTMP)
+    }
+
     render() {
-        console.log(this.state.listC)
+
         return (
             < div className="product" >
                 <div class="type-name">
                     <h1>Danh Sách sản phẩm</h1>
-                    <input value={this.state.valueSearch} onChange={event => this.changeSearch(event)} placeholder="Bạn cần tìm gì" ></input>
-                    <button class="Add-product" onClick={this.addProduct()}>Thêm mới</button>
+                    <div class="padding">
+                        <select value={this.state.selectCategori} onChange={(event) => this.changeSelectCategori(event)}>
+                            <option class="select-status" value="All">All</option>
+                            {this.state.listC.map((resC, keyC) => {
+                                return <option value={resC.id}>{resC.name}</option>
+                            })}
+                        </select>
+                        <input class="search-txt" value={this.state.valueSearch} onChange={event => this.changeSearch(event)} placeholder="Bạn cần tìm gì" ></input>
+
+
+                    </div>
 
                     {/* {form add } -------------------------------------------------------------------------*/}
 
@@ -355,6 +381,7 @@ export default class Product extends React.Component {
                         <li>Giá </li>
                         <li>Số lượng</li>
                         <li>Ram (gb)</li>
+                        <li><button class="Add-product" onClick={this.addProduct()}>Thêm mới</button></li>
                     </ul>
                 </div>
                 <div class="info">
@@ -393,10 +420,13 @@ export default class Product extends React.Component {
                                             {/* <li> <label>ID</label><input value={this.state.id} type="edit" onChange={event => this.changeValueEditId(event)}></input></li> */}
                                             <li>
                                                 <p>Dòng</p>
-                                                <select value={this.state.category} disabled onChange={this.changeCategory()} >
-                                                    <option value="3"> Macbook</option>
+                                                <select value={this.state.category} onChange={this.changeCategory()} >
+                                                    {/* <option value="3"> Macbook</option>
                                                     <option value="2">Dell</option>
-                                                    <option value="1">HP</option>
+                                                    <option value="1">HP</option> */}
+                                                    {this.state.listC.map((resC, key) => {
+                                                        return <option value={resC.id}>{resC.name}</option>
+                                                    })}
                                                 </select>
                                             </li>
                                             <li> <label>Name</label><input value={this.state.name} type="edit" onChange={event => this.changeValueEditName(event)}></input></li>

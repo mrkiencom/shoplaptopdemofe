@@ -19,9 +19,10 @@ h1{
     margin-bottom: 30px;
 }
 ul.value-name {
-    display: flex;
+    display: grid;
+    grid-template-columns: 16% 16% 18% 18% 25% auto;
     list-style: none;
-    width: 800px;
+    width: 820px;
 }
 
 ul.value-name>li {
@@ -32,12 +33,16 @@ ul.value-name>li {
 }
 
 button.Add-product {
-    background-color: rgb(21, 124, 38);
+    background-color: rgb(55, 83, 177);
     color: cornsilk;
-    font-weight: 50;
+    font-weight: 800;
     font-size: inherit;
-    height: 30px;
-    width: 100px; 
+    height: 50px;
+    width: 180px;
+    margin-top: -10px;
+    border-radius: 3%;
+    outline: none;
+
 }
 
 ul.info-product {
@@ -134,4 +139,17 @@ button.edit{
 div.input-group{
     margin: 50px 0 30px 0;
     align-items: center;
+}
+.padding{
+    margin-bottom: 30px;
+    display: flex;
+    padding: 0 0 0 40px;
+}
+.padding>select{
+    margin-right: 500px;
+}
+.search-txt{
+    height: 40px;
+    width: 380px;
+    margin-right: 10px;
 }

@@ -21,9 +21,8 @@ button.add,button.close{
 }
 
 .add-user{
+    width: 540px;
     padding-top:40px;
-    transition:  all 1s;
- 
 }
 .add-user>h1{
     text-align: center;
@@ -37,7 +36,7 @@ p.msg-err{
 } 
 div.user-detail{
     width: 600px;
-    margin: auto;
+    float: left;
 }
 input.disable{
     pointer-events: none;
@@ -51,10 +50,8 @@ div.edit-button{
     margin-right: 80px;
 }
 .form-detail-user{
-    width: 800px;
-    margin-top: 50px;
+    width: 640px;
     list-style: none;
-    padding-right: 40px;
     background-color: rgba(204, 202, 202, 0.9);
     border-radius: 20px;
     box-shadow: 3px 5px 7px rgba(0, 0, 0);
@@ -68,4 +65,13 @@ button:active{
 .chuc-nang>input{
     margin-right:550px ;
     width: 400px;
+}
+.btn-close{
+    float: right;
+    margin: 10px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-weight: 1000px;
+    font-family: Arial, Helvetica, sans-serif;
 }

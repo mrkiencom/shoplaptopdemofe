@@ -15,8 +15,9 @@ class Header extends React.Component {
                     <ul class="header-context">
                         <a class="logo" src="#"><MdScreenShare />BKLapTop</a>
                         <li><input class="search" type="text" placeholder="Search...."></input></li>
-                        <li> <a href="#" class="giohang">
-                            <AiOutlineShoppingCart /> Giỏ hàng
+                        <li>
+                            <a href="#" class="giohang">
+                                <AiOutlineShoppingCart /> Giỏ hàng
                         </a>
                         </li>
                         <li> <a href='https://www.facebook.com/ ' class="sign-up" >Đăng kí </a> </li>

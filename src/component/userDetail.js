@@ -17,9 +17,13 @@ class UserDetail extends Component {
             showDetailUser: [],
             textdisable: true,
             formedit: false,
-            checkload: false
-
+            checkload: false,
+            listHistoryOrder: [],
+            err: true
         }
+    }
+    componentDidMount() {
+        console.log("component ")
     }
     checkValidate = () => {
         const msg = {}
@@ -76,7 +80,7 @@ class UserDetail extends Component {
         })
     }
     Accept() {
-        callAPI.login();
+
         const value = this.checkValidate();
         const list = {
             "name": this.state.name,
@@ -100,6 +104,8 @@ class UserDetail extends Component {
         }
     }
     render() {
+
+        console.log("history", this.state.listHistoryOrder)
         return (
             <div class="user-detail">
                 <div class="add-user">
@@ -123,6 +129,8 @@ class UserDetail extends Component {
                         </div>
                     }
                 </div>
+
+
             </div >
         );
     }

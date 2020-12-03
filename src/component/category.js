@@ -16,7 +16,8 @@ class Category extends Component {
             adddescription: '',
             showViewAddProduct: [],
             listProduct: [],
-            listcheckbox: []
+            checkbox: [],
+            checkall: ''
         }
     }
     getAPI() {
@@ -139,33 +140,81 @@ class Category extends Component {
         }
     }
     addProduct(res, key) {
+
         const showViewEdit = []
         for (let i = 0; i < this.state.list.length; i++) {
             showViewEdit[i] = 'false'
         }
         showViewEdit[key] = 'true'
         return e => {
+            const listcheckbox = [];
+            for (let i = 0; i < this.state.listProduct.length; i++) {
+                listcheckbox[i] = false
+            }
             this.setState({
                 showViewAddProduct: showViewEdit,
+                checkbox: listcheckbox
             })
-            console.log(res.name)
+            console.log("check", listcheckbox)
         }
     }
     componentWillMount() {
         this.checked = new Set();
     }
 
-    addCheckbox = (id) => {
+    addCheckbox = (id, key) => {
+        const arrCheck = this.state.checkbox;
         if (this.checked.has(id)) {
             this.checked.delete(id)
-        } else
+            arrCheck[key] = false;
+            this.setState({
+                checkbox: arrCheck
+            })
+            console.log(key)
+        } else {
             this.checked.add(id)
+            arrCheck[key] = true;
+            this.setState({
+                checkbox: arrCheck
+            })
+        }
 
         this.setState({
+            listcheckbox: this.checked,
+
+        })
+        console.log(this.state.checkbox);
+    }
+
+    addAllCheckbox = (event) => {
+        const check = []
+        for (let i = 0; i < this.state.listProduct.length; i++) {
+            check[i] = false;
+        }
+        // event.target.checked === true ? this.setState({ checkall: true }) : this.setState({ checkall: false })
+        if (event.target.checked === true) {
+            for (let i = 0; i < this.state.listProduct.length; i++) {
+                check[i] = true
+                this.checked.add(this.state.listProduct[i].id)
+            }
+            this.setState({ checkall: true })
+            console.log("check", this)
+        }
+        else {
+            for (let i = 0; i < this.state.listProduct.length; i++) {
+                check[i] = false;
+                this.checked.delete(this.state.listProduct[i].id)
+            }
+            this.setState({ checkall: false })
+        }
+        this.setState({
+            checkbox: check,
             listcheckbox: this.checked
         })
-        console.log(this.state.listcheckbox);
+        console.log(this.state.listcheckbox)
     }
+
+
     AcceptAddProduct(id) {
         return e => {
             callAPI.callAPI('categories/' + `${id}` + '/add_products', 'PATCH', this.state.listcheckbox, localStorage.getItem('token')).then(res => {
@@ -228,7 +277,7 @@ class Category extends Component {
                                             <div class="form-add-product-category">
                                                 <h1>ADD</h1>
                                                 <ul class="form-add-product-category-title">
-                                                    <li>.</li>
+                                                    <li><input type="checkbox" onChange={(e) => this.addAllCheckbox(e)}></input></li>
                                                     <li>ID</li>
                                                     <li>NAME</li>
                                                     <li>MEMORY</li>
@@ -236,22 +285,22 @@ class Category extends Component {
                                                     <li>QUANTITY</li>
                                                     <li>RAM</li>
                                                 </ul>
-
-                                                {this.state.listProduct.map((resP, keyP) => {
-                                                    return (
-                                                        <ul class="list-add-product-category">
-                                                            <input type="checkbox" value={resP.id} onChange={() => this.addCheckbox(resP.id)}></input>
-                                                            <li>{resP.id}</li>
-                                                            <li>{resP.name}</li>
-                                                            <li>{resP.memory}</li>
-                                                            <li>{resP.price}</li>
-                                                            <li>{resP.quantity}</li>
-                                                            <li>{resP.ram}</li>
-                                                        </ul>
-                                                    )
-                                                })}
-
-                                                <div>
+                                                <div class="fomr-list-add-product-category">
+                                                    {this.state.listProduct.map((resP, keyP) => {
+                                                        return (
+                                                            <ul class="list-add-product-category">
+                                                                <input type="checkbox" value={resP.id} checked={this.state.checkbox[keyP]} onChange={() => this.addCheckbox(resP.id, keyP)}></input>
+                                                                <li>{resP.id}</li>
+                                                                <li>{resP.name}</li>
+                                                                <li>{resP.memory}</li>
+                                                                <li>{resP.price}</li>
+                                                                <li>{resP.quantity}</li>
+                                                                <li>{resP.ram}</li>
+                                                            </ul>
+                                                        )
+                                                    })}
+                                                </div>
+                                                <div class="button-tool">
                                                     <button class="xac-nhan" onClick={this.AcceptAddProduct(res.id)}>Add</button>
                                                     <button class="huy" onClick={this.close()}>Huy</button>
 

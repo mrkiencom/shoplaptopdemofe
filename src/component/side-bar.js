@@ -17,17 +17,12 @@ class SideBar extends React.Component {
             logout: false
         }
     }
-
     logout() {
         this.setState({
             logout: true
         })
     }
     render() {
-        if (this.state.logout === true) {
-            <Redirect to="/" />
-            window.location.reload();
-        }
         return (
             <div>
                 <Router>
@@ -42,7 +37,7 @@ class SideBar extends React.Component {
 
 
                             </div>
-                            <button class="log-out" onClick={this.logout.bind(this)}>LOG OUT</button>
+                            <button class="log-out" onClick={() => { window.location.href = "/" }}>LOG OUT</button>
                             <Link class="link" to="/">Trang Chủ</Link >
                             <Link class="link" to="/Admin/products">Thống Kê</Link>
                             <Link class="link" to="/Admin/order">Đơn hàng</Link>
@@ -62,7 +57,6 @@ class SideBar extends React.Component {
                         <Route path="/Admin/account"  >
                             <Account />
                         </Route>
-
                         <Route path="/Admin/category"  >
                             <Category />
                         </Route>
@@ -72,7 +66,7 @@ class SideBar extends React.Component {
                     </Switch>
                 </Router >
 
-            </div>
+            </div >
         );
 
 

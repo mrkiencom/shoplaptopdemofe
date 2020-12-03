@@ -20,6 +20,7 @@ export default class Account extends React.Component {
             msg: "",
             showDetailUser: [],
             checkload: false,
+            listHistoryOrder: []
         }
     }
     checkValidate = () => {
@@ -68,6 +69,7 @@ export default class Account extends React.Component {
     componentDidMount() {
         callAPI.login();
         this.getAPI();
+
     }
     showViewAddDetail() {
         this.setState({
@@ -141,8 +143,10 @@ export default class Account extends React.Component {
         }
 
     }
-    showDetailUser(key, le) {
+    showDetailUser(id, key, le) {
         return e => {
+
+
             const arrCheck = []
             for (let i = 0; i < le; i++) {
                 arrCheck[i] = "false"
@@ -213,7 +217,7 @@ export default class Account extends React.Component {
 
                 {(this.state.showViewAddDetail === true) && <div class="form-edit">
                     <ul class="add-product">
-                        <div class="add-user">
+                        <ul class="edit">
                             <h1>Thêm mới tài khoản</h1>
                             <li> <label>Full Name</label><input type="add" onChange={event => this.changeValueName(event)}></input><p class="msg-err">{this.state.msg.name}</p></li>
                             <li> <label>Email</label><input type="add" onChange={event => this.changeValueEmail(event)}></input><p class="msg-err">{this.state.msg.email}</p></li>
@@ -222,7 +226,7 @@ export default class Account extends React.Component {
                             <li> <label>Address</label><input type="add" onChange={event => this.changeValueAddress(event)}></input><p class="msg-err">{this.state.msg.address}</p></li>
                             <button class="xac-nhan" onClick={this.addAccept()}>Xác nhận</button>
                             <button class="huy" onClick={this.close()}>Hủy</button>
-                        </div>
+                        </ul>
                     </ul>
 
                 </div >}
@@ -240,7 +244,7 @@ export default class Account extends React.Component {
                         return (
                             <div>
                                 <ul className="list-info">
-                                    <button class={(this.state.showViewMain) ? "btn-show" : "disable"} onClick={this.showDetailUser(key, this.state.list.length)} ></button>
+                                    <button class={(this.state.showViewMain) ? "btn-show" : "disable"} onClick={this.showDetailUser(res.id, key, this.state.list.length)} ></button>
                                     <li>{res.id}</li>
                                     <li>{res.name}</li>
                                     <li>{res.phone}</li>
@@ -250,8 +254,8 @@ export default class Account extends React.Component {
                                 </ul>
                                 {(this.state.showDetailUser[key] === "true") && <div class="form-detail">
                                     <ul class="form-detail-user">
-                                        <button onClick={this.cancer(this.state.list.length)} class="btn-cancer"> x </button>
-                                        <UserDetail res={res} key={key} />
+                                        <button onClick={this.cancer(this.state.list.length)} class="btn-close"> x </button>
+                                        <UserDetail res={res} key={key} obj={this.state.listHistoryOrder} />
                                     </ul>
                                 </div>
                                 }

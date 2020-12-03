@@ -84,11 +84,12 @@
     font-family: fantasy;
     margin-bottom: 20px;
     margin-top: 30px;
+    
 }
 .form-add-product-category{
-    width: 1300px;
-    height: auto;
-    margin-top: 50px;
+    width: 1200px;
+    height: 100%;
+    /* margin-top: 50px; */
     list-style: none;
     padding-right: 40px;
     background-color: rgb(238, 237, 233);
@@ -97,7 +98,7 @@
     align-items: center;
     border-top: 1px solid gray;
     padding-bottom: 20px;
-    margin-top: -300px;
+    
 }
 .form-add-product-category-title{
     display: grid;
@@ -116,4 +117,16 @@
     font-weight: 800;
     font-family:Georgia, 'Times New Roman', Times, serif;
     border-bottom: 1px solid rgb(151, 151, 151);
+    
+}
+.fomr-list-add-product-category{
+    overflow:  auto;
+    height: 710px;
+    margin-bottom: 30px;
+}
+div.button-tool{
+    margin-left: 300px;
+}
+.form-add-product-category>h1{
+    text-align: center;
 }
