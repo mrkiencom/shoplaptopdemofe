@@ -6,6 +6,10 @@ import DetailProduct from "./detailProduct";
 import { BiEdit } from 'react-icons/bi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { BiDetail } from 'react-icons/bi';
+import { FcNumericalSorting12 } from 'react-icons/fc';
+import { FcNumericalSorting21 } from 'react-icons/fc';
+
+
 import callAPI from "../callAPI/callAPI.js";
 import isEmpty from 'validator/lib/isEmpty';
 export default class Product extends React.Component {
@@ -32,6 +36,8 @@ export default class Product extends React.Component {
             msg: {},
             selectCategori: '',
             listTMP: '',
+            sortPrice: false,
+            namePrice: <FcNumericalSorting12 />
         }
     }
     getAPI() {
@@ -320,7 +326,17 @@ export default class Product extends React.Component {
         })
         console.log(this.state.listTMP)
     }
+    sortPrice() {
 
+        this.setState({
+            sortPrice: !this.state.sortPrice,
+            namePrice: (this.state.sortPrice) ? <FcNumericalSorting12 /> : <FcNumericalSorting21 />,
+            list: this.state.list.sort((a, b) => {
+                return (this.state.sortPrice === false) ? b.price - a.price : a.price - b.price
+            })
+        })
+
+    }
     render() {
 
         return (
@@ -378,10 +394,10 @@ export default class Product extends React.Component {
                     <ul class="value-name">
                         <li>Dòng sản phẩm</li>
                         <li>Tên sản phẩm</li>
-                        <li>Giá </li>
+                        <li onClick={this.sortPrice.bind(this)}> <a href="#"> Giá {this.state.namePrice} </a></li>
                         <li>Số lượng</li>
                         <li>Ram (gb)</li>
-                        <li><button class="Add-product" onClick={this.addProduct()}>Thêm mới</button></li>
+                        <li><button class="Add-product-bnt" onClick={this.addProduct()}>Thêm mới</button></li>
                     </ul>
                 </div>
                 <div class="info">

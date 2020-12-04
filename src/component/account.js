@@ -212,7 +212,7 @@ export default class Account extends React.Component {
                 <h1>Account</h1>
                 <div class="chuc-nang">
                     <input value={this.state.valueSearch} onChange={event => this.changeSearch(event)} placeholder="Bạn cần tìm gì" ></input>
-                    <button class="Add-product" onClick={this.showViewAddDetail.bind(this)}>Thêm mới</button>
+                    <button class="Add-Account-bnt" onClick={this.showViewAddDetail.bind(this)}>Thêm mới</button>
                 </div>
 
                 {(this.state.showViewAddDetail === true) && <div class="form-edit">

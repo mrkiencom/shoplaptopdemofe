@@ -75,3 +75,14 @@ button:active{
     font-weight: 1000px;
     font-family: Arial, Helvetica, sans-serif;
 }
+button.Add-Account-bnt{
+    background-color: rgb(55, 83, 177);
+    color: cornsilk;
+    font-weight: 800;
+    font-size: inherit;
+    height: 40px;
+    width: auto;
+    margin-top: -10px;
+    border-radius: 3%;
+    outline: none;
+}
