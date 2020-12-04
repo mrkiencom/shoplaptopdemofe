@@ -10,6 +10,8 @@ import Order from './order.js'
 import Account from './account.js'
 import Category from './category.js'
 import HomeAdmin from './homeAdmin.js'
+import Static from './static.js'
+
 class SideBar extends React.Component {
     constructor() {
         super();
@@ -38,8 +40,7 @@ class SideBar extends React.Component {
 
                             </div>
                             <button class="log-out" onClick={() => { window.location.href = "/" }}>LOG OUT</button>
-                            <Link class="link" to="/">Trang Chủ</Link >
-                            <Link class="link" to="/Admin/products">Thống Kê</Link>
+                            <Link class="link" to="/Admin/static">Thống Kê</Link>
                             <Link class="link" to="/Admin/order">Đơn hàng</Link>
                             <Link class="link" to="/Admin/products">Sản phẩm</Link>
                             <Link class="link" to="/Admin/category">Danh mục</Link>
@@ -62,6 +63,9 @@ class SideBar extends React.Component {
                         </Route>
                         <Route exact path="/Admin">
                             <HomeAdmin />
+                        </Route>
+                        <Route path="/Admin/static">
+                            <Static />
                         </Route>
                     </Switch>
                 </Router >

@@ -295,7 +295,6 @@ export default class Product extends React.Component {
                 });
             })
             .catch((error) => console.log(error));
-
     }
     changeCategory(e) {
         return e => {

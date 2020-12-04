@@ -1,0 +1,25 @@
+.static{
+    width: 1400px;
+    float: right;
+    background-color: beige;
+    margin: 50px 110px auto;
+    padding: 30px 20px 0 20px;
+}
+.static-user-content>img{
+    height: 110px;
+    width: 110px;
+    float: left;
+    margin-left: -50px;
+}
+.static-user-content{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.static-user-content>p{
+    margin-left: 900px;
+    font-size: larger;
+}
+.static-user-content>p>span{
+    color: brown;
+}
